@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "homepage": "https://cyanidium1.github.io/nova-poshta-app",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
