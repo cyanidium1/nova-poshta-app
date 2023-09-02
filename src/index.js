@@ -7,8 +7,9 @@ import App from "./components/App";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter basename="/nova-poshta-app">
+    {/* <BrowserRouter basename="/nova-poshta-app">
       <App />
-    </BrowserRouter>
+    </BrowserRouter> */}
+    <div>чертов гітхаб пейджс ска</div>
   </React.StrictMode>
 );
