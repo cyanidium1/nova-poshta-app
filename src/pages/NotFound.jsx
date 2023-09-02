@@ -6,3 +6,5 @@ export const NotFound = () => {
     </main>
   );
 };
+
+// "homepage": "https://cyanidium1.github.io/nova-poshta-app",
