@@ -15,7 +15,21 @@ function SearchForm({ search, updSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updSearch(searchTerm);
+    const noSpace = searchTerm.split(/\s+/).join("");
+    if (noSpace.length < 1) {
+      return alert("Спочатку введіть номер ТТН");
+    }
+    const containLetters = /\D/.test(noSpace);
+    if (containLetters) {
+      return alert("Номер ТТН не може складатися з букв");
+    }
+    if (noSpace.length !== 14) {
+      return alert("Введіть валідний ТТН з 14 цифр");
+    }
+    if (noSpace.startsWith("0")) {
+      return alert("Номер не може починатися з 0");
+    }
+    updSearch(noSpace);
   };
 
   return (
@@ -25,7 +39,6 @@ function SearchForm({ search, updSearch }) {
           <input
             className="outline-none rounded p-2 bg-slate-200"
             type="text"
-            // placeholder="Tracking number..."
             value={searchTerm}
             onChange={handleInputChange}
           />

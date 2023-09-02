@@ -1,25 +1,50 @@
+import { useEffect, useState } from "react";
+import getLocs from "../api/getLocs";
+
 export const Addresses = () => {
-  const locs = [
-    { num: "1", addres: "221e street Kyiuv", working: "24h" },
-    { num: "2", addres: "221e street Kyiuv", working: "24h" },
-    { num: "3", addres: "221e street Kyiuv", working: "24h" },
-    { num: "4", addres: "221e street Kyiuv", working: "24h" },
-  ];
+  const [data, loadData] = useState([]);
+
+  useEffect(() => {
+    getLocs().then((d) => loadData(d.data));
+  }, []);
+
+  let pageNumber = 1;
+
+  const loadMore = () => {
+    pageNumber += 1;
+    getLocs(pageNumber).then((d) => loadData([...data, ...d.data]));
+  };
 
   return (
     <main>
       <ul>
-        {locs &&
-          locs.map((el) => {
+        {data &&
+          data.map((el) => {
             return (
-              <li key={el.num} className="flex justify-between p-2 my-2">
-                <p>{el.num}</p>
-                <p>{el.addres}</p>
-                <p>{el.working}</p>
+              <li
+                key={el.SiteKey}
+                className="grid grid-cols-3 gap-4 p-2 my-2 w-full"
+              >
+                <p className="col-span-1">
+                  {el.RegionCity} <br />
+                  {el.Schedule.Monday}
+                </p>
+
+                <p className="col-span-2">{el.Description}</p>
               </li>
             );
           })}
       </ul>
+      <div className="text-center mb-2">
+        {data.length > 0 && (
+          <button
+            onClick={loadMore}
+            className="bg-orangered font-medium py-2 px-4 rounded text-white ml-2 hover:bg-orange-500 duration-300 inline-block"
+          >
+            Загрузити ще
+          </button>
+        )}
+      </div>
     </main>
   );
 };
