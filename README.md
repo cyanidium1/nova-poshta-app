@@ -1,1 +1,0 @@
-Novaposhta tracking app.
