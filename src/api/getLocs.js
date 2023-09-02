@@ -1,12 +1,8 @@
 import axios from "axios";
 
-// Define the request data
-
-const apiKey = "89301ad477e2d7083bc3979ca065aba0"; // Replace with your NovaPoshta API key
+const apiKey = "89301ad477e2d7083bc3979ca065aba0";
 
 const apiUrl = "https://api.novaposhta.ua/v2.0/json/";
-
-// Define the request data
 
 const getLocs = (pageNumber = 1) => {
   const pageSize = 10;
