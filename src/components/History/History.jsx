@@ -1,46 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Item from "../Item/Item";
-const list = [
-  "20400048799002",
+// "20400048799002",
+// "20400048799003",
+// "20400048799004",
+// "20400048799005",
+// "59000544395305",
+// "20400349126274",
+const History = ({ updSearch, addTrack }) => {
+  const [history, updHistory] = useState(
+    JSON.parse(localStorage.getItem("nptracklist")) ?? []
+  );
+  useEffect(() => {
+    if (
+      !history.includes(addTrack) &&
+      addTrack !== undefined &&
+      addTrack !== ""
+    ) {
+      const newArray = [...history, addTrack];
+      updHistory(newArray);
+      localStorage.setItem("nptracklist", JSON.stringify(newArray));
+    }
+  }, [addTrack]);
 
-  "20400048799003",
+  const deleteItem = (el) => {
+    const newArray = history.filter((item) => item !== el);
+    updHistory(newArray);
+    localStorage.setItem("nptracklist", JSON.stringify(newArray));
+  };
 
-  "20400048799004",
+  const delAll = () => {
+    updHistory([]);
+    localStorage.setItem("nptracklist", JSON.stringify([]));
+  };
 
-  "20400048799005",
-
-  "59000544395305",
-];
-
-const History = ({ updSearch }) => {
-  const [history, show] = useState(false);
+  const [historyShow, show] = useState(false);
 
   return (
     <div className="sm:max-w-[300px] p-2 ">
-      {list && (
+      {history && (
         <div className="">
           <h3
-            onClick={() => show(!history)}
+            onClick={() => show(!historyShow)}
             className="bg-slate-200 rounded p-2 text-center font-medium w-[288px] mx-auto cursor-pointer"
           >
-            Історія
+            {historyShow ? <span>Скрити</span> : <span>Показати</span>} історію
           </h3>
-
-          {history && (
+          {historyShow && (
             <div>
               <ul>
-                {list.map((el) => (
-                  <li
-                    className="cursor-pointer hover:bg-slate-100"
-                    onClick={() => updSearch(el)}
-                  >
-                    <Item el={el} key={el.id} deleteItem={"deleteItem"} />
-                  </li>
-                ))}
+                {history.length > 0 &&
+                  history.map((el) => (
+                    <li key={el}>
+                      <Item
+                        el={el}
+                        deleteItem={deleteItem}
+                        updSearch={updSearch}
+                      />
+                    </li>
+                  ))}
               </ul>
-              <p className="bg-orangered text-white rounded p-2 text-center w-[288px] mx-auto cursor-pointer hover:bg-orange-400 duration-300">
-                Видалити усі
-              </p>
+              {history.length > 0 && (
+                <p
+                  onClick={delAll}
+                  className="bg-orangered text-white rounded p-2 text-center w-[288px] mx-auto cursor-pointer hover:bg-orange-400 duration-300"
+                >
+                  Видалити усі
+                </p>
+              )}
             </div>
           )}
         </div>

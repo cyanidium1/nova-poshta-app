@@ -1,4 +1,8 @@
+import getLocs from "../api/getLocs";
+
 export const Addresses = () => {
+  getLocs().then((d) => console.log(d));
+
   const locs = [
     { num: "1", addres: "221e street Kyiuv", working: "24h" },
     { num: "2", addres: "221e street Kyiuv", working: "24h" },

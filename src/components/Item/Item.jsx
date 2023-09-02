@@ -2,7 +2,7 @@ import im from "../../images/1.png";
 import del from "../../images/del.png";
 import { useState } from "react";
 
-const Item = ({ el, deleteItem }) => {
+const Item = ({ el, deleteItem, updSearch }) => {
   const [state, changeState] = useState({
     backgroundColor: "#e2e8f0",
   });
@@ -11,7 +11,7 @@ const Item = ({ el, deleteItem }) => {
       <button
         className="bg-slate-200 flex justify-center items-center rounded w-10"
         onClick={() => {
-          if (state.fontWeight === 400) {
+          if (state.backgroundColor === "#e2e8f0") {
             changeState({
               backgroundColor: "#ff4500",
               color: "white",
@@ -27,7 +27,11 @@ const Item = ({ el, deleteItem }) => {
       >
         <img src={im} width="15px" alt="pic" />
       </button>
-      <p className="p-3 px-9" style={state}>
+      <p
+        className="cursor-pointer p-3 px-9"
+        onClick={() => updSearch(el)}
+        style={state}
+      >
         {el}
       </p>
       <button
