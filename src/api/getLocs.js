@@ -8,26 +8,27 @@ const apiUrl = "https://api.novaposhta.ua/v2.0/json/";
 
 // Define the request data
 
-const getLocs = () => {
+const getLocs = (pageNumber = 1) => {
+  const pageSize = 10;
+
   const requestData = {
     apiKey: apiKey,
     modelName: "AddressGeneral",
     calledMethod: "getWarehouses",
     methodProperties: {
-      Language: "en", // Language of the response (you can change it)
+      Page: pageNumber,
+      Limit: pageSize,
+      Language: "en",
     },
   };
 
-  // Make the API request
   return axios
     .post(apiUrl, requestData)
     .then((response) => {
       const data = response.data;
-      // Handle the response data here
       return data;
     })
     .catch((error) => {
-      // Handle any errors that occur during the request
       console.error(error);
     });
 };

@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Item from "../Item/Item";
-// "20400048799002",
-// "20400048799003",
-// "20400048799004",
-// "20400048799005",
-// "59000544395305",
 // "20400349126274",
 const History = ({ updSearch, addTrack }) => {
   const [history, updHistory] = useState(
