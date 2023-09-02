@@ -13,7 +13,7 @@ const App = () => {
           <span className="mr-1" role="img" aria-label="truck icon">
             🚚
           </span>{" "}
-          <p className="hidden text-2xl sm:block">Нова Пошта</p>
+          <p className="hidden text-2xl min-[465px]:block">Нова Пошта</p>
         </div>
         <Navigation />
       </Header>

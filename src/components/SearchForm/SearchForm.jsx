@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function SearchForm() {
+function SearchForm({ search, updSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (search) {
+      setSearchTerm(search);
+    }
+  }, [search]);
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -10,22 +15,27 @@ function SearchForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here, you can perform your search logic, e.g., fetching data from an API
-    // For this example, we'll just update the searchResults state with the searchTerm
-    setSearchResults([searchTerm]);
+    updSearch(searchTerm);
   };
 
   return (
-    <div>
-      <h1>Пошук по трекінг-номеру</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Tracking number..."
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Search</button>
+    <div className="sm:w-3/5">
+      <form className="p-2" onSubmit={handleSubmit}>
+        <div className="mx-auto w-fit sm:mx-0 sm:w-full flex">
+          <input
+            className="outline-none rounded p-2 bg-slate-200"
+            type="text"
+            // placeholder="Tracking number..."
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          <button
+            className="bg-orangered font-medium py-2 px-4 rounded text-white ml-2 hover:bg-orange-500 duration-300"
+            type="submit"
+          >
+            Пошук
+          </button>
+        </div>
       </form>
     </div>
   );
